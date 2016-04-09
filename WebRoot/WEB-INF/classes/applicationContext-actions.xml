@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	     xmlns:aop="http://www.springframework.org/schema/aop"
+	     xmlns:tx="http://www.springframework.org/schema/tx"
+	     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+         http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+	
+	
+	<!--
+	 * 我们的action对象，在此之前是struts容器给我们创建的，
+	 * 而不是Spring IoC给我们创建的，即不是从IOC容器中拿出来，
+	 * 如果要利用Spring IoC容器生成该Actiond对象并取出来，
+	 * 我们就必须需要得到BeanFactory对象，这样的话虽然可以在这类里实现，
+	 * 但是产生了对BeanFactory依赖!!
+	 * 所以在"applicationContext-actions.xml"文件中，仅凭如下配置：
+	 * <bean id="loginAction" class="com.neusoft.web.actions.LoginAction">
+	 *		<property name="userManager" ref="userManager"/>
+	 * </bean>
+	 * 是不起任何作用的！也注入不进来。
+	 * 所以要修改配置文件applicationContext-actions.xml
+	 * 如该文件现在你所看到的样子。
+	 * 将id 属性修改为name
+	 * spring 默认是创建单实例的，在这里，我们可以通过scope="prototype"来创建多实例。 
+	-->
+
+    <bean name="deviceAction" class="com.neusoft.action.DeviceAction">
+		<property name="deviceInfoService" ref="deviceInfoService"/>
+		<property name="npContactorInfoService" ref="npContactorInfoService"/>
+	</bean>
+	<bean name="nodeAction" class="com.neusoft.action.NodeAction">
+		<property name="nmTopNodeService" ref="nmTopNodeService"/>
+		<property name="nmTopLinkService" ref="nmTopLinkService"/>
+		<property name="nodeLinkManageService" ref="nodeLinkManageService"/>
+		<property name="npAlarmInfoService" ref="npAlarmInfoService"/>
+	</bean>
+	
+	<bean name="alarmAction" class="com.neusoft.action.AlarmAction">
+		<property name="npAlarmInfoService" ref="npAlarmInfoService"/>
+	</bean>
+	
+	<bean name="contactorAction" class="com.neusoft.action.ContactorAction">
+		<property name="npContactorInfoService" ref="npContactorInfoService"/>
+	</bean>
+	
+	<bean name="userAction" class="com.neusoft.action.UserAction">
+		<property name="userService" ref="userService"/>
+	</bean>
+	
+	<bean name="failureReportAction" class="com.neusoft.action.FailureReportAction">
+		<property name="failureReportService" ref="failureReportService"/>
+	</bean>
+</beans>

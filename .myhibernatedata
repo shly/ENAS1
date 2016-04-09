@@ -1,0 +1,24 @@
+#MyEclipse Hibernate Properties
+#Thu May 01 20:03:38 CST 2014
+sessionFactoryName=com.neusoft.model.HibernateSessionFactory
+genBasicCompId=true
+profile=
+daoSFId=
+version=3.3
+jndiPath=
+detectM2M=false
+reStrategyClass=
+detectO2O=false
+springDaoFile=
+useJavaTypes=true
+keyGenerator=
+libInstallFolder=//WebRoot/WEB-INF/lib
+addLibs2Project=true
+genVersionTag=false
+sessionFactoryId=
+basePersistenceClass=
+genAnnotations=false
+reSettingsFile=
+configFile=/tryssh/src/hibernate.cfg.xml
+createConfigFile=true
+addLibs2Classpath=true

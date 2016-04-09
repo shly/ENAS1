@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+<constant name="struts.devMode" value="true" />
+<!-- 默认的视图主题 -->
+    <constant name="struts.ui.theme" value="simple" />
+    <constant name="struts.objectFactory" value="spring" />
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+
+    
+    <package name="node" namespace="/" extends="struts-default">
+		 <action name="nodeAction.*" class="nodeAction" method="{1}">
+			<result name="success">/common/success.jsp</result>
+			<result name="error">/common/error.jsp</result>
+		</action>
+		
+		<action name="alarmAction.*" class="alarmAction" method="{1}">
+			<result name="success">/jsp/findAlarmInfo.jsp</result>
+			<result name="error">/common/error.jsp</result>
+		</action>
+		
+		<action name="deviceAction.*" class="deviceAction" method="{1}">
+			<result name="input">/jsp/{1}.jsp</result>
+			<result name="success">/common/success.jsp</result>
+			<result name="error">/common/error.jsp</result>
+		</action>
+		
+		<action name="deviceAction.findDevice" class="deviceAction" method="findDevice">
+			<result name="input">/jsp/modifyDevice.jsp</result>
+			<result name="error">/common/error.jsp</result>
+		</action>
+		
+		<action name="contactorAction.*" class="contactorAction" method="{1}">
+			<result name="input">/jsp/{1}.jsp</result>
+			<result name="success">/common/success.jsp</result>
+			<result name="error">/common/error.jsp</result>
+		</action>
+		
+		<action name="contactorAction.findContactorInfo" class="contactorAction" method="findContactorInfo">
+			<result name="input">/jsp/modifyContactor.jsp</result>
+			<result name="error">/common/error.jsp</result>
+		</action>
+		
+		<action name="failureReportAction.*" class="failureReportAction" method="{1}">
+			<result name="input">/jsp/{1}.jsp</result>
+			<result name="success">/common/success.jsp</result>
+			<result name="error">/common/error.jsp</result>
+		</action>
+		
+		<action name="failureReportAction.findFailureReport" class="failureReportAction" method="findFailureReport">
+			<result name="success">/jsp/failureReportDetails.jsp</result>
+			<result name="error">/common/error.jsp</result>
+		</action>
+		
+		
+		<action name="userAction.logout" class="userAction" method="logout">
+			<result name="success">/index.jsp</result>
+			<result name="error">/common/error.jsp</result>
+		</action>
+		<action name="userAction.login" class="userAction" method="login">
+			<result name="success">/jsp/nodeAlarmDisplay.jsp</result>
+			<result name="error">/jsp/index.jsp</result>
+		</action>
+		
+    </package>
+    
+    <!-- <package name="UserAuthentication" namespace="/UserAuthentication" extends="struts-default">
+    
+    	<action name="userAction.login" class="userAction" method="login">
+			<result name="success">/jsp/nodeAlarmDisplay.jsp</result>
+			<result name="error">/jsp/index.jsp</result>
+		</action>
+		
+		
+    </package>
+ -->
+</struts>

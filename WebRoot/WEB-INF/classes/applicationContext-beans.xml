@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	     xmlns:aop="http://www.springframework.org/schema/aop"
+	     xmlns:tx="http://www.springframework.org/schema/tx"
+	     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+	
+	<!-- ===========以下是 Businesss Service 配置 ===========-->
+	
+		<!-- 这里，必须要显示的注入sessionFactory
+			 在UserManagerImpl中，this.getHibernateTemplate()获得的该hibernate模板
+			 是对Hibernate session 的封装，那么session是怎么创建出来的呢？这个实现类中需要sessionFactory。
+			 HibernateDaoSupport 代码如下：
+			 public final void setSessionFactory(SessionFactory sessionFactory) {
+	  			this.hibernateTemplate = createHibernateTemplate(sessionFactory);}
+		 	 所以，在这里我们需要将sessionFactory注入进来，供UserManagerImpl使用。
+		 	 
+		 -->
+	<bean id="npAlarmInfoService" class="com.neusoft.service.impl.NpAlarmInfoServiceImpl">
+		<property name="npAlarmInfoDao" ref="npAlarmInfoDao"/>
+		<property name="npAlarmLevelDao" ref="npAlarmLevelDao"/>
+		<property name="npAlarmTypeDao" ref="npAlarmTypeDao"/>
+		<property name="npDeviceInfoDao" ref="npDeviceInfoDao"/>
+	</bean>
+	
+ 
+ 	<bean id="deviceInfoService" class="com.neusoft.service.impl.NpDeviceInfoServiceImpl">
+		<property name="npDeviceInfoDao" ref="npDeviceInfoDao"/>
+		<property name="npContactorInfoDao" ref="npContactorInfoDao"/>
+	</bean>
+	<bean id="nmTopNodeService" class="com.neusoft.service.impl.NmTopNodeServiceImpl">
+		<property name="nmTopNodeDao" ref="nmTopNodeDao"/>
+	</bean>
+	<bean id="nmTopLinkService" class="com.neusoft.service.impl.NmTopLinkServiceImpl">
+		<property name="nmTopLinkDao" ref="nmTopLinkDao"/>
+	</bean>
+	<bean id="nodeLinkManageService" class="com.neusoft.service.impl.NodeLinkManageServiceImpl">
+		<property name="nmTopNodeService" ref="nmTopNodeService"/>
+		<property name="nmTopLinkService" ref="nmTopLinkService"/>
+	</bean>
+	<bean id="npContactorInfoService" class="com.neusoft.service.impl.NpContactorInfoServiceImpl">
+		<property name="npContactorInfoDao" ref="npContactorInfoDao"/>
+	</bean>
+	<bean id="userService" class="com.neusoft.service.impl.UserServiceImpl">
+		<property name="userDao" ref="userDao"/>
+	</bean>
+	<bean id="failureReportService" class="com.neusoft.service.impl.FailureReportServiceImpl">
+		<property name="failureReportDao" ref="failureReportDao"/>
+	</bean>
+
+	<!-- ===========以下是DAO beans 配置 ==============-->
+		<!-- 这里，必须要显示的注入sessionFactory对象，
+			 在UsersDaoImpl、ProdsDaoImpl、CategoryDaoImpl中，
+			 this.getHibernateTemplate()获得的该hibernate模板，
+			 是对Hibernate session 的封装，那么session是怎么创建出来的呢？
+			 这个实现类中需要sessionFactory。HibernateDaoSupport 代码如下：
+			 public final void setSessionFactory(SessionFactory sessionFactory) {
+	  			this.hibernateTemplate = createHibernateTemplate(sessionFactory);}
+		 	 所以，在这里我们需要将sessionFactory注入进来，
+		 	 供UsersDaoImpl、ProdsDaoImpl、CategoryDaoImpl使用。
+		 -->
+		 
+	 <bean id="npDeviceInfoDao" class="com.neusoft.dao.impl.NpDeviceInfoDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	  </bean>
+	 <bean id="nmTopNodeDao" class="com.neusoft.dao.impl.NmTopNodeDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	  </bean>
+	 <bean id="nmTopLinkDao" class="com.neusoft.dao.impl.NmTopLinkDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	  </bean>
+	  <bean id="npAlarmInfoDao" class="com.neusoft.dao.impl.NpAlarmInfoDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	  </bean>
+	  <bean id="npAlarmLevelDao" class="com.neusoft.dao.impl.NpAlarmLevelDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	  </bean>
+	  <bean id="npAlarmTypeDao" class="com.neusoft.dao.impl.NpAlarmTypeDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	  </bean>
+	  <bean id="npDeviceInstanceTDao" class="com.neusoft.dao.impl.NpDeviceInstanceTDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	  </bean>
+	  <bean id="npKpiDao" class="com.neusoft.dao.impl.NpKpiDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	  </bean>
+	  <bean id="npContactorInfoDao" class="com.neusoft.dao.impl.NpContactorInfoDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	  </bean>
+	  <bean id="userDao" class="com.neusoft.dao.impl.UserDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	  </bean>
+	   <bean id="failureReportDao" class="com.neusoft.dao.impl.FailureReportDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	  </bean>
+
+
+</beans>
